@@ -12,3 +12,4 @@ gradle-app.setting
 .settings
 *.log
 bin/
+node_modules/
