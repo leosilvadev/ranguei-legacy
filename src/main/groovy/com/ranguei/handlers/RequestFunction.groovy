@@ -1,7 +1,7 @@
 package com.ranguei.handlers
 
-import groovy.transform.CompileStatic;
-import groovy.transform.TypeChecked;
+import groovy.transform.CompileStatic
+import groovy.transform.TypeChecked
 
 @TypeChecked
 @CompileStatic
@@ -30,7 +30,7 @@ class RequestFunction {
 	def result(){
 		try {
 			def response = inStream ? function(inStream) : function()
-			successFn response
+			if(successFn) successFn response
 		} catch (ex) {
 			if(errorFn) errorFn ex
 		}

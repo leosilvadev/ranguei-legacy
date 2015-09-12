@@ -26,11 +26,17 @@ dependencies {
 	compile('log4j:log4j:1.2.17')
 	compile('commons-io:commons-io:2.4')
 	compile('com.gmongo:gmongo:1.5')
+	compile("cglib:cglib-nodep:3.1")
+	
+	testCompile("org.objenesis:objenesis:2.1")
     testCompile(group: 'junit', name: 'junit', version: '4.+')
+	testCompile("org.spockframework:spock-core:1.0-groovy-2.3")
 }
 
 test {
-    systemProperties 'property': 'value'
+    filter {
+        includeTestsMatching "*Spec"
+    }
 }
 
 uploadArchives {
@@ -43,4 +49,4 @@ uploadArchives {
 
 task bowerInstall(type: BowerInstallTask)
 
-task stage(dependsOn: ['clean', 'bowerInstall', 'installApp'])
+task stage(dependsOn: ['clean', 'bowerInstall', 'build', 'installApp'])
