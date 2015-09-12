@@ -14,14 +14,14 @@ class EstablishmentController {
 			handle({
 				db.establishments.find().toArray()
 				
-			}).success({ establishments ->
+			}).onSuccess({ establishments ->
 				writeJSON(
 					establishments.collect {
 						[username: it.username, password: it.password]
 					}
 				)
 			
-			}).error({ ex ->
+			}).onError({ ex ->
 				error 500, ex.message
 			
 			}).result()
@@ -32,10 +32,10 @@ class EstablishmentController {
 				def establishment = to.json(instream)
 				db.establishments << establishment
 				
-			}, instream).success({
+			}, instream).onSuccess({
 				writeJSON(['message':'Establishment was registered!'])
 			
-			}).error({ ex ->
+			}).onError({ ex ->
 				error 400, 'Invalid JSON Data'
 			
 			}).result()

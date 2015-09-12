@@ -1,33 +1,38 @@
 package com.ranguei.handlers
 
+import groovy.transform.CompileStatic;
+import groovy.transform.TypeChecked;
+
+@TypeChecked
+@CompileStatic
 class RequestFunction {
 	
-	private def onSuccess
-	private def onError
-	private def function
-	private def inStream
+	private Closure successFn
+	private Closure errorFn
+	private Closure function
+	private InputStream inStream
 
-	RequestFunction(function, inStream=null){
+	RequestFunction(Closure function, InputStream inStream=null){
 		this.function = function
 		this.inStream = inStream
 	}
 
-	RequestFunction error(error){
-		onError = error
+	RequestFunction onError(Closure onError){
+		this.errorFn = onError
 		this
 	}
-
-	RequestFunction success(success){
-		onSuccess = success
+	
+	RequestFunction onSuccess(Closure onSuccess){
+		this.successFn = onSuccess
 		this
 	}
 
 	def result(){
 		try {
 			def response = inStream ? function(inStream) : function()
-			onSuccess response
+			successFn response
 		} catch (ex) {
-			if(onError) onError ex
+			if(errorFn) errorFn ex
 		}
 	}
 }
