@@ -1,3 +1,4 @@
+import tasks.InstallNodeTask
 import tasks.NpmInstallTask
 import tasks.BowerInstallTask
 
@@ -40,7 +41,9 @@ uploadArchives {
     }
 }
 
-task npmInstall(type: NpmInstallTask)
+task installNode(type: InstallNodeTask)
+
+task npmInstall(type: NpmInstallTask, dependsOn: ['installNode'])
 
 task bowerInstall(type: BowerInstallTask, dependsOn: ['npmInstall'])
 
