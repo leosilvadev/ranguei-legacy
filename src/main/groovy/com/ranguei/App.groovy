@@ -15,7 +15,11 @@ class App {
 			resources.each {
 				resource it
 			}
-		}.start(8080)
+		}.start(port())
+	}
+	
+	static def port(){
+		System.getenv().PORT ?: 8080
 	}
 
 }
