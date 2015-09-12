@@ -1,3 +1,5 @@
+import tasks.BowerInstallTask
+
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
@@ -37,5 +39,6 @@ uploadArchives {
     }
 }
 
+task bowerInstall(type: BowerInstallTask)
 
-task stage(dependsOn: ['clean', 'installApp'])
+task stage(dependsOn: ['clean', 'bowerInstall', 'installApp'])
