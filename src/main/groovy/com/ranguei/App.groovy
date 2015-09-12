@@ -2,6 +2,8 @@ package com.ranguei
 
 import io.github.javaconductor.gserv.GServ
 
+import com.mongodb.DB
+import com.ranguei.configuration.MongoDB
 import com.ranguei.routes.Router
 
 class App {
@@ -10,7 +12,7 @@ class App {
 		def gserv = new GServ()
 		
 		def resources = Router.configure(gserv)
-		
+				
 		gserv.http {
 			static_root  'app'
 			resources.each {

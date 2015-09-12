@@ -25,6 +25,7 @@ dependencies {
 	compile(group: 'io.github.javaconductor', name: 'gserv', version: '0.9.9', ext: 'jar')
 	compile('log4j:log4j:1.2.17')
 	compile('commons-io:commons-io:2.4')
+	compile('com.gmongo:gmongo:1.5')
     testCompile(group: 'junit', name: 'junit', version: '4.+')
 }
 
