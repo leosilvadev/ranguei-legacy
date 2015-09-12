@@ -12,6 +12,7 @@ class App {
 		def resources = Router.configure(gserv)
 		
 		gserv.http {
+			static_root  'app'
 			resources.each {
 				resource it
 			}
