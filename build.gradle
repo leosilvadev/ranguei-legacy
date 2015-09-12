@@ -38,3 +38,4 @@ uploadArchives {
 }
 
 task stage(dependsOn: ['clean', 'installDist'])
+
