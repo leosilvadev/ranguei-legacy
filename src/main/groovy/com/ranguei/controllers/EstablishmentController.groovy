@@ -10,12 +10,29 @@ class EstablishmentController {
 		
 		DB db = MongoDB.instance.db
 		
+		get "/", {
+			handle({
+				db.establishments.find().toArray()
+				
+			}).success({ establishments ->
+				writeJSON(
+					establishments.collect {
+						[username: it.username, password: it.password]
+					}
+				)
+			
+			}).error({ ex ->
+				error 500, ex.message
+			
+			}).result()
+		}
+		
 		post "/", { instream ->
-			handle(instream, {
+			handle({
 				def establishment = to.json(instream)
 				db.establishments << establishment
 				
-			}).success({
+			}, instream).success({
 				writeJSON(['message':'Establishment was registered!'])
 			
 			}).error({ ex ->

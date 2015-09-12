@@ -7,9 +7,9 @@ class RequestFunction {
 	private def function
 	private def inStream
 
-	RequestFunction(inStream, function){
-		this.inStream = inStream
+	RequestFunction(function, inStream=null){
 		this.function = function
+		this.inStream = inStream
 	}
 
 	RequestFunction error(error){
@@ -24,10 +24,10 @@ class RequestFunction {
 
 	def result(){
 		try {
-			def response = function(inStream)
+			def response = inStream ? function(inStream) : function()
 			onSuccess response
 		} catch (ex) {
-			onError ex
+			if(onError) onError ex
 		}
 	}
 }

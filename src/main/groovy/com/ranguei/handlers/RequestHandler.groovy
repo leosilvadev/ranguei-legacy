@@ -4,8 +4,8 @@ import groovy.json.JsonException;
 
 class RequestHandler {
 		
-	static RequestFunction handle(inStream, function){
-		new RequestFunction(inStream, function)
+	static RequestFunction handle(function, inStream=null){
+		new RequestFunction(function, inStream)
 	}
 
 }

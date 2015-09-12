@@ -2,8 +2,6 @@ package com.ranguei
 
 import io.github.javaconductor.gserv.GServ
 
-import com.mongodb.DB
-import com.ranguei.configuration.MongoDB
 import com.ranguei.routes.Router
 
 class App {
