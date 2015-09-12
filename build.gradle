@@ -1,7 +1,3 @@
-import tasks.InstallNodeTask
-import tasks.NpmInstallTask
-import tasks.BowerInstallTask
-
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
@@ -41,10 +37,5 @@ uploadArchives {
     }
 }
 
-task installNode(type: InstallNodeTask)
 
-task npmInstall(type: NpmInstallTask, dependsOn: ['installNode'])
-
-task bowerInstall(type: BowerInstallTask, dependsOn: ['npmInstall'])
-
-task stage(dependsOn: ['clean', 'bowerInstall', 'installApp'])
+task stage(dependsOn: ['clean', 'installApp'])
