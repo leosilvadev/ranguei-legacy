@@ -5,7 +5,7 @@ import com.gmongo.GMongoClient
 import com.mongodb.DB
 import com.mongodb.MongoURI
 
-@Singleton(lazy=true, strict=false)
+@Singleton(strict=false)
 class MongoDB {
 	
 	DB db

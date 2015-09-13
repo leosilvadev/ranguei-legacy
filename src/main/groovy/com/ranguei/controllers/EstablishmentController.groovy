@@ -1,8 +1,11 @@
 package com.ranguei.controllers
 
+import groovy.transform.CompileStatic
+
 import com.mongodb.DB
 import com.ranguei.configuration.MongoDB
-import static com.ranguei.handlers.RequestHandler.handle
+import com.ranguei.domains.Establishment;
+import com.ranguei.handlers.request.RequestHandler
 
 class EstablishmentController {
 	
@@ -10,29 +13,28 @@ class EstablishmentController {
 		
 		DB db = MongoDB.instance.db
 		
-		get "/", {
-			handle({
-				db.establishments.find().toArray()
+		get "/", { instream ->
+				new RequestHandler(instream, {
+					Establishment.all()
+					
+				}).onSuccess({ establishments ->
+					writeJSON(
+						establishments.collect {
+							[username: it.username, password: it.password]
+						}
+					)
 				
-			}).onSuccess({ establishments ->
-				writeJSON(
-					establishments.collect {
-						[username: it.username, password: it.password]
-					}
-				)
-			
-			}).onError({ ex ->
-				error 500, ex.message
-			
-			}).result()
+				}).onError({ ex ->
+					error 500, ex.message
+				
+				}).result()
 		}
 		
 		post "/", { instream ->
-			handle({
-				def establishment = to.json(instream)
-				db.establishments << establishment
+			new RequestHandler(instream, {
+				Establishment.save new Establishment(to.json(instream))
 				
-			}, instream).onSuccess({
+			}).onSuccess({
 				writeJSON(['message':'Establishment was registered!'])
 			
 			}).onError({ ex ->

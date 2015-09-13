@@ -1,5 +1,7 @@
 package com.ranguei.handlers
 
+import com.ranguei.handlers.request.RequestHandler;
+
 import spock.lang.Specification
 
 class RequestFunctionSpec extends Specification {
@@ -11,7 +13,7 @@ class RequestFunctionSpec extends Specification {
 			Closure function = { true }
 			
 		and: "a request function without inputstream"
-			def requestFunction = new RequestFunction( function )
+			def requestFunction = new RequestHandler( function )
 			
 		when: "the request function register a onSuccess function"
 			requestFunction.onSuccess onSuccess
