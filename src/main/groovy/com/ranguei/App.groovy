@@ -1,5 +1,6 @@
 package com.ranguei
 
+import groovy.stream.Stream
 import io.github.javaconductor.gserv.GServ
 
 import com.mongodb.DBCollection
@@ -47,6 +48,15 @@ class App {
 		Domain.metaClass.'static'.delete = { String id ->
 			DBCollection collection = mongoCollection delegate
 			collection.remove(["_id": id])
+		}
+		
+		Domain.metaClass.asMap = {
+			Stream.from(this.class.declaredFields)
+				.filter({ !it.synthetic })
+				.filter({ !isStatic(it.modifiers) })
+				.collectEntries {
+					[ (it.name):this."$it.name" ]
+				}
 		}
 	}
 	

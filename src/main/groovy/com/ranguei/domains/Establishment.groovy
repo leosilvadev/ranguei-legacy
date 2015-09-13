@@ -1,6 +1,6 @@
 package com.ranguei.domains
 
-class Establishment extends Domain {
+class Establishment implements Domain {
 	
 	static def collection = [
 		name: 'establishments'

@@ -1,5 +1,6 @@
 package com.ranguei.controllers
 
+import groovy.stream.Stream;
 import groovy.transform.CompileStatic
 
 import com.mongodb.DB
@@ -19,7 +20,7 @@ class EstablishmentController {
 					
 				}).onSuccess({ establishments ->
 					writeJSON(
-						establishments.collect {
+						Stream.from(establishments).collect {
 							[username: it.username, password: it.password]
 						}
 					)
