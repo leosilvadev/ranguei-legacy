@@ -19,10 +19,14 @@ class App {
 		def resources = Router.configure(gserv)
 		
 		gserv.http {
-			static_root  'app'
+			static_root  'dist'
+			
+			get '/', file('index.html')
+			
 			resources.each {
 				resource it
 			}
+			
 		}.start(port())
 	}
 	
