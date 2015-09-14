@@ -80,7 +80,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('dist', [ 'clean', 'copy' ]);
 	grunt.registerTask('min', [ 'useminPrepare', 'concat', 'uglify', 'cssmin', 'rev:imgs', 'rev:mins', 'usemin', 'imagemin' ]);
-	grunt.registerTask('default', [ 'dist', 'min' ]);
+	grunt.registerTask('build', [ 'dist', 'min' ]);
 	grunt.registerTask('server', [ 'browserSync', 'watch' ]);
 
 	grunt.loadNpmTasks('grunt-contrib-copy');

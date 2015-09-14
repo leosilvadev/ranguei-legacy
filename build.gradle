@@ -1,4 +1,5 @@
 import tasks.BowerInstallTask
+import tasks.GruntBuildTask
 
 apply plugin: 'java'
 apply plugin: 'groovy'
@@ -50,4 +51,6 @@ uploadArchives {
 
 task bowerInstall(type: BowerInstallTask)
 
-task stage(dependsOn: ['clean', 'bowerInstall', 'build', 'installApp'])
+task gruntBuild(type: GruntBuildTask)
+
+task stage(dependsOn: ['clean', 'bowerInstall', 'gruntBuild', 'build', 'installApp'])
