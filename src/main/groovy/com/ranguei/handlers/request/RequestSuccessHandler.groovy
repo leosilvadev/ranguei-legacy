@@ -1,29 +1,23 @@
 package com.ranguei.handlers.request
 
-import java.io.InputStream;
-
-import groovy.lang.Closure;
-import groovy.transform.Immutable
-
-
 class RequestSuccessHandler {
 	
 	private final Closure successFn
 	private final Closure function
-	private final InputStream inStream
+	private final RequestData requestData
 
-	RequestSuccessHandler(Closure successFn, Closure function, InputStream inStream) {
+	RequestSuccessHandler(Closure successFn, Closure function, RequestData requestData) {
 		this.successFn = successFn
 		this.function = function
-		this.inStream = inStream
+		this.requestData = requestData
 	}
 
 	RequestErrorHandler onError(Closure onError){
-		new RequestErrorHandler(successFn, onError, function, inStream)
+		new RequestErrorHandler(successFn, onError, function, requestData)
 	}
 	
 	def result(){
-		def result = inStream ? function(inStream) : function()
+		def result = requestData ? function(requestData) : function()
 		if (successFn) successFn result
 	}
 }

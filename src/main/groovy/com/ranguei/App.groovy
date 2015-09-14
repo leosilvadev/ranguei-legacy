@@ -1,7 +1,8 @@
 package com.ranguei
 
-import groovy.stream.Stream
 import io.github.javaconductor.gserv.GServ
+
+import org.bson.types.ObjectId
 
 import com.mongodb.DBCollection
 import com.ranguei.configuration.MongoDB
@@ -16,7 +17,7 @@ class App {
 		def gserv = new GServ()
 		
 		def resources = Router.configure(gserv)
-				
+		
 		gserv.http {
 			static_root  'app'
 			resources.each {
@@ -37,26 +38,16 @@ class App {
 		
 		Domain.metaClass.'static'.save = { Domain domain ->
 			DBCollection collection = mongoCollection delegate
-			collection.save domain.asMap()
-		}
-		
-		Domain.metaClass.'static'.delete = { Domain domain ->
-			DBCollection collection = mongoCollection delegate
-			collection.remove domain.asMap()
+			if(domain.id) {
+				collection.update domain.asMap(), [_id:  new ObjectId(domain.id)]
+			} else {
+				collection.save domain.asMap()
+			}
 		}
 		
 		Domain.metaClass.'static'.delete = { String id ->
 			DBCollection collection = mongoCollection delegate
-			collection.remove(["_id": id])
-		}
-		
-		Domain.metaClass.asMap = {
-			Stream.from(this.class.declaredFields)
-				.filter({ !it.synthetic })
-				.filter({ !isStatic(it.modifiers) })
-				.collectEntries {
-					[ (it.name):this."$it.name" ]
-				}
+			collection.remove([_id: new ObjectId(id)])
 		}
 	}
 	
