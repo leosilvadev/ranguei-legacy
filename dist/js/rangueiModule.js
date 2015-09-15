@@ -2,6 +2,6 @@
 	
 	'use strict';
 	
-	angular.module('ranguei', ['ranguei.guest']);
+	angular.module('ranguei', ['ranguei.guest', 'ranguei.facebook']);
 	
 })();
