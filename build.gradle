@@ -34,6 +34,8 @@ buildscript {
 
 cobertura.coverageFormats = ['html', 'xml']
 
+cobertura.coverageSourceDirs = sourceSets.main.groovy.srcDirs
+
 dependencies {
 	compile("org.codehaus.groovy:groovy-all:2.3.10")
 	compile('org.codehaus.gpars:gpars:1.2.1')
