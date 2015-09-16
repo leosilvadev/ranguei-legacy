@@ -8,19 +8,18 @@ import com.mongodb.MongoURI
 @Singleton(strict=false)
 class MongoDB {
 	
-	DB db
+	final DB db
 	
 	MongoDB(){
 		db = configure()
 	}
 	
 	private DB configure(){
-		GMongo gmongo
-		
 		String envURI = System.getenv("MONGOLAB_URI")
-		if(envURI){
+		
+		if (envURI) {
 			MongoURI uri = new MongoURI(envURI)
-			gmongo = new GMongo(uri)
+			GMongo gmongo = new GMongo(uri)
 			return gmongo.getDB(uri.database)
 			
 		} else {
