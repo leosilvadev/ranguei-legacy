@@ -5,6 +5,8 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'eclipse'
 apply plugin: 'application'
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
 
 version = '1.0'
 
@@ -18,6 +20,19 @@ repositories {
     mavenCentral()
 	jcenter()
 }
+
+buildscript {
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
+		classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
+	}
+}
+
+cobertura.coverageFormats = ['html', 'xml']
 
 dependencies {
 	compile("org.codehaus.groovy:groovy-all:2.3.10")
